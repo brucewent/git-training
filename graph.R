@@ -1,22 +1,22 @@
 # FINALISING JOURNAL B
 library(tidyverse)
+library(smoothHR)
 
-surv<-read.csv("data/whas500.csv")%>%
-  mutate(LENFOLY = round(LENFOL/365.25, 2), ## change follow-up days to years for better visualization
-         AFB_C = ifelse(AFB==1, "Active", "Non-Active"),
-         GENDER_C = ifelse(GENDER==1, "Male", "Female"),
-         CVD_C = ifelse(CVD==1, "Yes", "No")) 
-
+surv <- whas500 %>%
+  mutate(lenfoly = round(lenfol/365.25, 2), ## change follow-up days to years for better visualization
+         afb_c = ifelse(afb==1, "Active", "Non-Active"),
+         gender_c = ifelse(gender==1, "Male", "Female"),
+         cvd_c = ifelse(cvd==1, "Yes", "No")) 
 
 pubgraph1 <-
-  ggplot(data = surv, mapping = aes(x =DIASBP , y =SYSBP )) + 
+  ggplot(data = surv, mapping = aes(x =diasbp , y =sysbp )) + 
   geom_point() + 
-  facet_grid(rows = vars(AFB_C), cols = vars(GENDER_C)) +
+  facet_grid(rows = vars(afb_c), cols = vars(gender_c)) +
   labs(title="Systolic and Diasolic Blood Pressure by Gender and Disease Status",
        y="Systolic Blood Pressure",
        x="Diastolic Blood Pressure",
        caption="Data source: Survival 500 data")+
-  geom_smooth(mapping=aes(group=NA,  x=DIASBP,y=SYSBP))+
+  geom_smooth(mapping=aes(group=NA,  x=diasbp,y=sysbp))+
   theme(panel.spacing = unit(0.5,"cm",data=NULL),
         strip.text.x=element_text(size=12, color="blue",face="bold.italic"),
         strip.text.y=element_text(size=12, color="blue",face="bold"),
