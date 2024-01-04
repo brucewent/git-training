@@ -9,12 +9,12 @@ surv <- whas500 %>%
          cvd_c = ifelse(cvd==1, "Yes", "No")) 
 
 pubgraph1 <-
-  ggplot(data = surv, mapping = aes(x =diasbp , y =sysbp )) + 
+  ggplot(data = surv, mapping = aes(x=diasbp, y=sysbp )) + 
   geom_point() + 
   facet_grid(rows = vars(afb_c), cols = vars(gender_c)) +
-  labs(title="Systolic and Diasolic Blood Pressure by Gender and Disease Status",
-       y="Systolic Blood Pressure",
+  labs(title="Diasolic and Systolic Blood Pressure by Gender and Disease Status",
        x="Diastolic Blood Pressure",
+       y="Systolic Blood Pressure",
        caption="Data source: Survival 500 data")+
   geom_smooth(mapping=aes(group=NA,  x=diasbp,y=sysbp))+
   theme(panel.spacing = unit(0.5,"cm",data=NULL),
